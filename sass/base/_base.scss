@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+/* a slightly better practice to put box-sizing to body and inherit here; this way we ensure plugins etc. do not get overwritten by the universal selector */
+
+html {
+  // this is what 1 rem is
+  font-size: 62.5%; // 1rem = 10px; 10px/16px (which is default) = 62.5%
+
+  // order of media queries; always the larger ones before slammer ones; last one meeting criteria will apply
+
+  @include respond(tab-land) { // width < 1200?
+    font-size: 56.25%; //1rem = 9px = 9/16 = 56.25%
+  }
+
+  @include respond(tab-port) { // width < 900?
+    font-size: 50%; //1rem = 8px = 8/16 = 50%
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1rem = 12 = 12/16 = 75%
+  }
+}
+
+/*  default size = 100% = 16px =; we want 10px = 10/16 = 62.5% */
+/* do not put absolute values here not to override user's default browser settings */
+
+body {
+  box-sizing: border-box;
+  padding: 3rem;
+
+  @include respond(tab-port) { 
+    padding: 0;
+  }
+}
+
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}
